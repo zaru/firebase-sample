@@ -34,18 +34,21 @@
   <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.5.1/firebaseui.css" />
   <script>
     var ui = new firebaseui.auth.AuthUI(firebase.auth());
-
     var uiConfig = {
       callbacks: {
         signInSuccess: function(currentUser, credential, redirectUrl) {
-          return true;
+          console.log(currentUser);
+          console.log(credential);
+          console.log(redirectUrl);
+          // デバッグ用 : リダイレクトさせない
+          return false;
         },
         uiShown: function() {
           document.getElementById('loader').style.display = 'none';
         }
       },
       signInFlow: 'popup',
-      signInSuccessUrl: '<url-to-redirect-to-on-success>',
+      signInSuccessUrl: '/',
       signInOptions: [
         firebase.auth.TwitterAuthProvider.PROVIDER_ID,
       ],
