@@ -33,29 +33,45 @@
   <script src="https://cdn.firebase.com/libs/firebaseui/2.5.1/firebaseui.js"></script>
   <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.5.1/firebaseui.css" />
   <script>
-    var ui = new firebaseui.auth.AuthUI(firebase.auth());
-    var uiConfig = {
-      callbacks: {
-        signInSuccess: function(currentUser, credential, redirectUrl) {
-          console.log(currentUser);
-          console.log(credential);
-          console.log(redirectUrl);
-          // デバッグ用 : リダイレクトさせない
-          return false;
-        },
-        uiShown: function() {
-          document.getElementById('loader').style.display = 'none';
-        }
-      },
-      signInFlow: 'popup',
-      signInSuccessUrl: '/',
-      signInOptions: [
-        firebase.auth.TwitterAuthProvider.PROVIDER_ID,
-      ],
-      tosUrl: 'https://firebase.google.com/docs/auth/web/firebaseui?hl=ja'
-    };
+    // var ui = new firebaseui.auth.AuthUI(firebase.auth());
+    // var uiConfig = {
+    //   callbacks: {
+    //     signInSuccess: function(currentUser, credential, redirectUrl) {
+    //       console.log(currentUser);
+    //       console.log(credential);
+    //       console.log(redirectUrl);
+    //       // デバッグ用 : リダイレクトさせない
+    //       return false;
+    //     },
+    //     uiShown: function() {
+    //       document.getElementById('loader').style.display = 'none';
+    //     }
+    //   },
+    //   signInFlow: 'popup',
+    //   signInSuccessUrl: '/',
+    //   signInOptions: [
+    //     firebase.auth.TwitterAuthProvider.PROVIDER_ID,
+    //   ],
+    //   tosUrl: 'https://firebase.google.com/docs/auth/web/firebaseui?hl=ja'
+    // };
+    //
+    // ui.start('#firebaseui-auth-container', uiConfig);
 
-    ui.start('#firebaseui-auth-container', uiConfig);
+    const provider = new firebase.auth.TwitterAuthProvider();
+
+    let authed = false
+    firebase.auth().getRedirectResult().then((result) => {
+      console.log(result)
+      authed = true
+    })
+
+    // if (!authed) {
+    //   firebase.auth().signInWithRedirect(provider).then((result) => {
+    //     console.log(result)
+    //   }).catch((error) => {
+    //     console.log(result)
+    //   })
+    // }
   </script>
 </body>
 </html>
